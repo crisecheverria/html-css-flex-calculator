@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calc</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <section class="screen">0</section>
+        </div>
+        <div class="row">
+            <button class="button clear" onclick="c()">C</button>
+            <button class="button" onclick="backSpace()">
+                <i class="fas fa-long-arrow-alt-left"></i>
+            </button>
+            <button class="button btn-operators" onclick="sign('/')">/</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="input(7)">7</button>
+            <button class="button" onclick="input(8)">8</button>
+            <button class="button" onclick="input(9)">9</button>
+            <button class="button btn-operators" onclick="sign('x')">x</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="input(4)">4</button>
+            <button class="button" onclick="input(5)">5</button>
+            <button class="button" onclick="input(6)">6</button>
+            <button class="button btn-operators" onclick="sign('-')">-</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="input(1)">1</button>
+            <button class="button" onclick="input(2)">2</button>
+            <button class="button" onclick="input(3)">3</button>
+            <button class="button btn-operators" onclick="sign('+')">+</button>
+        </div>
+        <div class="row">
+            <button class="button zero" onclick="input(0)">0</button>
+            <button class="button btn-operators" onclick="equal()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const screen = document.querySelector('.screen');
+        let num1, num2, result = 0;
+        let character = '';
+        const input = (num) => {
+            if (screen.innerText === '0') {
+                screen.innerText = '';
+            }
+            screen.innerText = screen.innerText + num;
+        }
+        const c = () => {
+            screen.innerText = 0;
+        }
+        const sign = (char) => {
+            if (typeof screen !== undefined) {
+                num1 = screen.innerText;
+                screen.innerText = '0';
+                character = char;
+            }
+        }
+        const equal = () => {
+            switch (character) {
+                case '+':
+                    num2 = screen.innerText;
+                    result = parseInt(num1) + parseInt(num2);
+                    break;
+                case '-':
+                    num2 = screen.innerText;
+                    result = parseInt(num1) - parseInt(num2);
+                    break;
+                case 'x':
+                    num2 = screen.innerText;
+                    result = parseInt(num1) * parseInt(num2);
+                    break;
+                case '/':
+                    num2 = screen.innerText;
+                    result = parseInt(num1) / parseInt(num2);
+                    break;
+                default:
+                    num1 = num2 = 0;
+                    result = screen.innerText;
+                    break;
+            }
+            character = '';
+            screen.innerText = result;
+        }
+        const backSpace = () => {
+            result = screen.innerText.substr(0, screen.innerText.length - 1);
+            if (screen.innerText.length === 1) {
+                screen.innerText = '0';
+            } else {
+                screen.innerText = result;
+            }
+        }
+    </script>
+</body>
+
+</html>
